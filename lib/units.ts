@@ -1,0 +1,18 @@
+export const UNITS = [
+  { value: "#", label: "# (pieces)" },
+  { value: "g", label: "g" },
+  { value: "kg", label: "kg" },
+  { value: "ml", label: "ml" },
+  { value: "L", label: "L" },
+  { value: "tsp", label: "tsp" },
+  { value: "tbsp", label: "tbsp" },
+  { value: "cup", label: "cup" },
+  { value: "oz", label: "oz" },
+  { value: "lb", label: "lb" },
+  { value: "pinch", label: "pinch" },
+  { value: "clove", label: "clove" },
+  { value: "bunch", label: "bunch" },
+  { value: "slice", label: "slice" },
+  { value: "can", label: "can" },
+  { value: "pack", label: "pack" },
+];
