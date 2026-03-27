@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { db } from "@/lib/db";
 import { recipes, ingredients } from "@/lib/schema";
 import { eq, asc } from "drizzle-orm";
