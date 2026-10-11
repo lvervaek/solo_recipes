@@ -2,7 +2,8 @@
 
 import { useState, useTransition } from "react";
 import { generateShoppingList, type ShoppingInput } from "@/actions/shopping";
-import { formatQuantity, type ShoppingItem } from "@/lib/shopping";
+import { shoppingListToText, type ShoppingItem } from "@/lib/shopping";
+import ShoppingListView from "@/components/shopping-list-view";
 import type { Recipe } from "@/lib/schema";
 
 export default function ShoppingSelector({ allRecipes }: { allRecipes: Recipe[] }) {
@@ -48,7 +49,7 @@ export default function ShoppingSelector({ allRecipes }: { allRecipes: Recipe[] 
 
   function copyToClipboard() {
     if (!result) return;
-    const text = result.map((i) => `${i.name} — ${formatQuantity(i.quantity)} ${i.unit}`).join("\n");
+    const text = shoppingListToText(result);
     navigator.clipboard.writeText(text);
   }
 
@@ -145,20 +146,7 @@ export default function ShoppingSelector({ allRecipes }: { allRecipes: Recipe[] 
               </button>
             </div>
           </div>
-          {result.length === 0 ? (
-            <p className="text-sm text-gray-500">No ingredients found.</p>
-          ) : (
-            <ul className="flex flex-col gap-2">
-              {result.map((item, i) => (
-                <li key={i} className="flex justify-between gap-4 border-b border-gray-100 pb-2 text-sm">
-                  <span className="text-gray-800">{item.name}</span>
-                  <span className="shrink-0 text-gray-500">
-                    {formatQuantity(item.quantity)} {item.unit}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          )}
+          <ShoppingListView items={result} />
         </div>
       )}
     </div>

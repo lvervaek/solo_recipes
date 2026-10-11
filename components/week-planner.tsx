@@ -4,7 +4,8 @@ import { useState, useMemo, useTransition, useEffect } from "react";
 import type { Recipe } from "@/lib/schema";
 import { buildDayWindow, type WeekPlanStore, type PlanEntry } from "@/lib/planning";
 import { generateShoppingList, type ShoppingInput } from "@/actions/shopping";
-import { formatQuantity, type ShoppingItem } from "@/lib/shopping";
+import type { ShoppingItem } from "@/lib/shopping";
+import ShoppingListView from "@/components/shopping-list-view";
 import DayCard from "@/components/day-card";
 import AddRecipeModal from "@/components/add-recipe-modal";
 
@@ -174,20 +175,7 @@ export default function WeekPlanner({ allRecipes }: { allRecipes: Recipe[] }) {
         <div className="rounded-xl border border-gray-200 bg-white p-6">
           <h2 className="mb-1 font-semibold text-gray-900">Shopping list</h2>
           <p className="mb-4 text-xs text-gray-400">Based on 2 servings per recipe</p>
-          {shoppingResult.length === 0 ? (
-            <p className="text-sm text-gray-500">No ingredients found.</p>
-          ) : (
-            <ul className="flex flex-col gap-2">
-              {shoppingResult.map((item, i) => (
-                <li key={i} className="flex justify-between gap-4 border-b border-gray-100 pb-2 text-sm">
-                  <span className="text-gray-800">{item.name}</span>
-                  <span className="shrink-0 text-gray-500">
-                    {formatQuantity(item.quantity)} {item.unit}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          )}
+          <ShoppingListView items={shoppingResult} />
         </div>
       )}
 

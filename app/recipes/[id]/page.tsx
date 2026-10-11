@@ -7,6 +7,7 @@ import { notFound } from "next/navigation";
 import { deleteRecipe } from "@/actions/recipes";
 import DeleteRecipeButton from "@/components/delete-recipe-button";
 import Link from "next/link";
+import { formatAmount } from "@/lib/shopping";
 
 export default async function RecipeDetailPage({
   params,
@@ -39,7 +40,15 @@ export default async function RecipeDetailPage({
       <div className="mb-6">
         <div className="flex items-start justify-between gap-4">
           <h1 className="text-2xl font-semibold text-gray-900">{recipe.name}</h1>
-          <DeleteRecipeButton action={handleDelete} />
+          <div className="flex shrink-0 gap-2">
+            <Link
+              href={`/recipes/${recipe.id}/edit`}
+              className="rounded-lg border border-gray-300 px-3 py-1.5 text-sm text-gray-700 hover:bg-gray-50"
+            >
+              Edit
+            </Link>
+            <DeleteRecipeButton action={handleDelete} />
+          </div>
         </div>
         {recipe.tags.length > 0 && (
           <div className="mt-2 flex flex-wrap gap-1">
@@ -74,7 +83,7 @@ export default async function RecipeDetailPage({
           <li key={ing.id} className="flex justify-between gap-4 border-b border-gray-100 pb-2 text-sm">
             <span className="text-gray-800">{ing.name}</span>
             <span className="shrink-0 text-gray-500">
-              {ing.quantity} {ing.unit}
+              {formatAmount(parseFloat(ing.quantity), ing.unit)}
             </span>
           </li>
         ))}
